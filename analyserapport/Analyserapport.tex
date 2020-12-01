@@ -1,0 +1,140 @@
+% Format verslag in LaTeX maken.
+% Lars Aalsma, Tutor Natuur- en Sterrenkunde 2014-2015
+% & Ramon Creyghton, tutor Natuur- en Sterrenkunde 2014-2016.
+% & David Fokkema, staflid natuurkundepracticum, september 2017.
+%
+% Dit document mag naar eigen inzicht aangepast en verspreid worden.
+% Her en der in dit document staan opmaak-opties en packages opgenomen, die afhankelijk van je voorkeuren kunnen worden aan- of uitgezet. Het is aan te raden je te verdiepen in de werking van deze opties (ze googlen is een start) voor je ze gebruikt.
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fouriernc}        % Dit package kiest het lettertype. Laat dit weg voor standaard Computer Modern.
+\usepackage[utf8]{inputenc}   % Je kunt gewóón accenten typen, als je wilt
+\usepackage[T1]{fontenc}      % Nodig om de accenten ook ín de pdf te krijgen
+\usepackage[dutch]{babel}     % Figuur i.p.v. Figure, en NL afbrekingen
+\usepackage{graphicx}         % Voor \includegraphics om figuren in te voegen
+\usepackage{amssymb}          % Voor extra symbolen
+\usepackage{amsmath}          % Voor extra ondersteuning bij vergelijkingen (zie documentatie)
+\usepackage{natbib}           % Voor auteur-jaar citatie.
+\usepackage{a4wide}           % Past marges aan voor A4.
+\usepackage[small]{caption}   % Voor bijschriften met een iets kleinere lettergrootte dan de hoofdtekst.
+\usepackage{url}              % Voor het beter weergeven van url's (lang, of met speciale tekens)
+\usepackage{booktabs}         % Voor professionele tabellen
+\usepackage[output-decimal-marker={,},list-final-separator={ en }]{siunitx}          % Voor het typesetten en uitlijnen van getallen en eenheden, zie documentatie
+\usepackage[pdfusetitle]{hyperref}  % Voor handige links in je PDF. B.v. urls, referenties, etc.
+\usepackage[version=4]{mhchem}
+
+
+\linespread{1.3}              % Iets grotere regelafstand: fijn voor degene die het nakijkt.
+
+% \renewcommand{\arraystretch}{1.5}   % Om rijen in tabellen wat ruimer rond de tekst te maken.
+
+%% DOCUMENT PROPERTIES % vul in
+\title{Analyserapport voor de bepaling van de halfwaardetijd van Kalium-40} % Vul in.
+\date{\today}
+
+\begin{document}
+
+%% BEGIN TITELPAGINA
+\begin{titlepage}
+\maketitle
+\thispagestyle{empty} % geen paginanummer op de titelpagina
+
+\vfill
+
+% Een samenvatting kun je opnemen op je titelpagina met het commando hieronder. 
+%\abstract{\small Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor ullamcorper sapien, quis lacinia nibh pellentesque vel. Sed ultrices nunc vitae magna pulvinar ac posuere velit bibendum. Nunc placerat ornare libero nec viverra. Nulla ullamcorper diam orci, sit amet scelerisque nisl. Nam sapien felis, auctor vestibulum dignissim nec, egestas eget dolor. \\[2ex]}
+
+ \begin{table}[h]
+  \label{tab:credits}
+  \begin{tabular}{l l}
+   \textsc{Auteur} & Frenk Klein Schiphorst \\
+   \textsc{Studentnummer}  & 11866497 \\ % Vul in
+   \textsc{Vak} & Natuur- \& Sterrenkunde Practicum 2 \\
+   \textsc{Studie} & Natuur- \& Sterrenkunde\\
+  \end{tabular}
+  \vspace{3ex}
+ \end{table}
+
+%De regels hieronder zorgen voor een mooi VU-UvA op je titelpagina. Het bestand logo-combi-vu-uva-nl.png is dan wel noodzakelijk.
+%Pro-tip: Bij regelmatig gebruik kan het handig zijn om dit bestand in je 'texmf' folder te zetten (Google is je vriend)
+\begin{figure}
+  \centering  
+  \includegraphics[width=150mm]{logo-combi-vu-uva-nl}\\   % UvA logo
+  \vspace{-13ex}
+ \end{figure}
+
+\end{titlepage}
+%% EIND TITELPAGINA
+
+\setcounter{page}{2}    % Begin na de titelpagina op pagina 2, dat is iets netter
+
+\suppressfloats[t]      % Nu volgt eigenlijk de eerste pagina van het document. Je wilt dan niet beginnen met een figuur. Dit commando (suppress floats at top of the page) onderdrukt een eventueel figuur en schuift dat naar een andere positie. Dit commando geldt alleen voor de *huidige* pagina.
+
+%%BEGIN VAN DE INHOUD VAN HET DOCUMENT
+
+\section{Inleiding}
+In dit analyserapport wordt de bepaling van de halfwaardetijd van Kalium-40 gepresenteerd. De gebruikte meetdata bestond uit metingen van de activiteit van bepaalde hoeveelheden kaliumcarbonaat, \ce{K2CO3}.
+
+%\section{Inleiding}
+%
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor ullamcorper sapien, quis lacinia nibh pellentesque vel. Sed ultrices nunc vitae magna pulvinar ac posuere velit bibendum. Nunc placerat ornare libero nec viverra. Nulla ullamcorper diam orci, sit amet scelerisque nisl. Nam sapien felis, auctor vestibulum dignissim nec, egestas eget dolor. Suspendisse iaculis, diam pulvinar luctus iaculis, ipsum nisl consectetur nisi, a lacinia eros lacus vitae dui. In fermentum ante quis ante porttitor congue. Mauris sollicitudin rhoncus dictum. Donec pretium molestie tempus. Integer suscipit egestas erat sit amet volutpat. Nullam et magna risus. Nam vel nisi libero. Duis ultricies ipsum eu lorem congue vestibulum. Aenean ut felis velit, ac lacinia erat. In a dolor dignissim elit faucibus facilisis. Vivamus iaculis ornare lacus, viverra convallis sapien pulvinar vitae.
+%
+%\section{Figuren en tabellen}
+%Een voorbeeld van een figuur is op de volgende pagina gegeven, zie figuur \ref{fig:figuur1}. Figuren staan nóóit in de lopende tekst. Pak een willekeurig artikel en je zult zien dat figuren óf bovenaan een pagina staan, óf onderaan een pagina, óf op een eigen pagina. Nooit in het midden. Probeer dus ook niet met \verb|[h]| o.i.d. de plaatsing van figuren te forceren. Over het algemeen maak je het alleen maar erger.
+%
+%\begin{figure}  % Forceer je figuur niet naar [h]ere. Dat gebeurt in artikelen ook niet.
+%\centering
+%\includegraphics[scale=0.5]{figuur1}
+%\caption{Een figuur heeft een onderschrift. Een plaatje trekt al snel je aandacht weg van de hoofdtekst. Zodra je het plaatje snel bekeken hebt, is de natuurlijke neiging om `verder te lezen' en beweegt je aandacht naar onder het plaatje. Als dáár dan een stukje tekst met uitleg staat, wordt het sneller gelezen dan wanneer dat bóven de figuur staat. Blijkt uit onderzoek.}
+%\label{fig:figuur1}
+%\end{figure}
+%
+%Een voorbeeld van een tabel is hieronder gegeven, zie tabel \ref{tab:tabel1}.
+%
+%\begin{table}
+%\caption{Een tabel heeft een bovenschrift. Een plaatje of tabel (met veel witruimte eromheen) trekt al snel je aandacht weg van de hoofdtekst. Toch worden je ogen al snel richting de kop getrokken (wat staat er boven de kolommen?) en als dáár dan een stukje tekst met uitleg staat, lees je dat sneller dan wanneer het ónder de tabel staat. Blijkt uit onderzoek.}
+%\centering
+%\begin{tabular}{SS} % uitlijnen als getal, dus met de komma's b.v. recht onder elkaar.
+%\toprule
+%{Slingerlengte [\si{\centi\meter}]} & {Slingertijd [\si{\second}]} \\  % Kop moet tussen {} om uitlijning als getal te voorkomen
+%\midrule
+%5 & 4.5 \\
+%10 & 6.3 \\
+%15 & 7.8 \\
+%20 & 9.0 \\
+%25 & 10.0 \\
+%\bottomrule
+%\end{tabular}
+%\label{tab:tabel1}
+%\end{table}
+%
+%\section{Een sectie}
+%
+%Formules in \LaTeX\ gaan vanzelf al snel goed. Zo krijgt iedere vergelijking automatisch een nummer, dat keurig rechts wordt uitgelijnd. Menig student krijgt dat in Word o.i.d. niet goed voor elkaar. Denk er wel aan formules op te nemen in de lopende tekst.
+%\begin{equation}
+%  F = ma
+%  \label{eq:eerste-wet-newton}
+%\end{equation}
+%De eerste wet van Newton. Vergelijking \ref{eq:eerste-wet-newton} is níet opgenomen in de lopende tekst, en dat leest dus niet zo lekker door. Je moet jezelf afvragen: kan ik dit verhaal voorlezen? Als je het verhaal goed kunt voorlezen \emph{inclusief} de vergelijking, zonder haperingen, dan staat het goed.
+%
+%Zo is bijvoorbeeld de trillingstijd van een slinger gegeven door
+%\begin{equation}
+%  T = 2\pi\sqrt{\frac{l}{g}},
+%  \label{eq:trillingstijd-slinger}
+%\end{equation}
+%met de trillingstijd $T$, de lengte van de slinger $l$ en de valversnelling $g$. Let ook op de komma aan het eind van vergelijking~\ref{eq:trillingstijd-slinger}. Dit stukje tekst kun je vloeiend voorlezen, zonder haperingen. Geef je vergelijkingen ook \emph{namen} om aan te refereren, en geen \emph{nummers}.
+%
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempor ullamcorper sapien, quis lacinia nibh pellentesque vel. Sed ultrices nunc vitae magna pulvinar ac posuere velit bibendum. Nunc placerat ornare libero nec viverra. Nulla ullamcorper diam orci, sit amet scelerisque nisl. Nam sapien felis, auctor vestibulum dignissim nec, egestas eget dolor. Suspendisse iaculis, diam pulvinar luctus iaculis, ipsum nisl consectetur nisi, a lacinia eros lacus vitae dui. In fermentum ante quis ante porttitor congue. Mauris sollicitudin rhoncus dictum. Donec pretium molestie tempus. Integer suscipit egestas erat sit amet volutpat. Nullam et magna risus. Nam vel nisi libero. Duis ultricies ipsum eu lorem congue vestibulum. Aenean ut felis velit, ac lacinia erat. In a dolor dignissim elit faucibus facilisis. Vivamus iaculis ornare lacus, viverra convallis sapien pulvinar vitae.
+%
+%\section{Referentie voorbeelden}
+%
+%\citet{Kachru2003} hebben aangetoond dat de Sitter vacua voorkomen in snaartheorie. Dit werd echter in een latere publicatie tegengesproken \citep{Bena2010}.
+%
+%%Refereren met LaTeX kan op twee manieren, zie ook Hoofdstuk 5 van de handleiding AVT. Hier voegen we referenties handmatig toe door gebruik te maken van thebibliography, zie de regels hieronder beginnend bij \begin{thebibliography}{}. Elke nieuwe referentie wordt toegevoegd met \bibitem.
+%
+%%In een \bibitem geeft de tekst tussen de [...] aan hoe de referentie verschijnt in de tekst. Tussen de {...} staat het label waarmee in de tekst naar de referentie kan worden verwezen. Refereren in de tekst wordt gedaan zoals hierboven (met \citet{<label>} en \citep{<label>}).
+
+
+
+\end{document}
