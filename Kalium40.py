@@ -57,6 +57,9 @@ for error in intrinsiek_err:
 intrinsiek_7 = sum(intrinsiek)/6
 intrinsiek_7_err = np.sqrt(sum(intrinsiek_err_sqrd))/6
 
+# intrinsiek_7 = 0.4
+# intrinsiek_7_err = 0.02
+
 print(f"De intrinsieke efficiëntie van de 7e GM-buis is {intrinsiek_7:.2f} +/- {intrinsiek_7_err:.2f}")
 
 molmassa_kacarb = 2*39.0983 + 12.011 + 3*15.9994
