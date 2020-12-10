@@ -16,8 +16,19 @@ df_1 = pd.DataFrame([
 df_1['counts_err'] = np.sqrt(df_1['counts'])
 df_1['achtergrond_err'] = np.sqrt(df_1['achtergrond'])
 
+df_1.to_csv('ijkmetingen.csv', index = False)
+
 df_1['strontium'] = df_1['counts'] - df_1['achtergrond']
 df_1['strontium_err'] = np.sqrt((df_1['counts_err'])**2 + (df_1['achtergrond_err'])**2)
+
+strontium_totaal = 960 * 1400
+strontium_totaal_err = np.sqrt((960)**2 + (2800)**2)
+
+print(strontium_totaal)
+print(strontium_totaal_err)
+
+df_1['efficientie'] = df_1['strontium']/strontium_totaal
+df_1['efficientie_err'] = np.sqrt((df_1['strontium_err']/strontium_totaal)**2 + (-(df_1['strontium']*strontium_totaal_err)/strontium_totaal**2)**2)
 
 def geometrisch(r, R):
     return (r**2)/(4*R**2)
@@ -28,19 +39,20 @@ def geometrisch_err(r, R, r_err, R_err):
 e_g = geometrisch(0.015, 0.15)
 e_g_err = geometrisch_err(0.015, 0.15, 0.001, 0.001)
 
-strontium_totaal = 960 * 1400
-strontium_totaal_err = 960
-
-df_1['efficientie'] = df_1['strontium']/strontium_totaal
-df_1['efficientie_err'] = np.sqrt((df_1['strontium_err']/strontium_totaal)**2 + (-(df_1['strontium']*strontium_totaal_err)/strontium_totaal**2)**2)
-
 df_1['intrinsiek'] = df_1['efficientie']/e_g
 df_1['intrinsiek_err'] = np.sqrt((df_1['efficientie_err']/e_g)**2 + (-(df_1['efficientie']*e_g_err)/e_g**2)**2)
 
+sel_1 = df_1[['efficientie', 'efficientie_err', 'intrinsiek', 'intrinsiek_err']]
+sel_1.to_csv('efficienties.csv', index=False)
+
 mod_linear = models.ConstantModel()
 fit = mod_linear.fit(df_1['strontium'], x=df_1['GM'], weights=1/df_1['strontium_err'])
+# fit.plot()
 
-# print(lmfit.report_fit(fit))
+df_1.plot.scatter('GM', 'strontium', yerr='strontium_err')
+plt.show()
+
+print(lmfit.report_fit(fit))
 
 # print(fit.redchi)
 ## referentie: https://stackoverflow.com/questions/43381833/lmfit-extract-fit-statistics-parameters-after-fitting
@@ -111,18 +123,18 @@ df['t_half_jaar_err'] = df['t_half_err'] / (365.25 * 24 * 60 * 60)
 
 # print(df[['aantal_kalium_deeltjes', 'aantal_kalium_40_deeltjes', 'aantal_kalium_40_deeltjes_err', 't_half', 't_half_err', 't_half_jaar', 't_half_jaar_err']])
 
-f = lambda x, t_half, mu: t_half * np.exp(mu*x)
-exponential = models.Model(f, name='halfwaardetijd')
+# f = lambda x, t_half, mu: t_half * np.exp(mu*x)
+# exponential = models.Model(f, name='halfwaardetijd')
 
-fit_2 = exponential.fit(df['t_half_jaar'], x=df['hoeveelheid_kacarb'], weights=1/df['t_half_jaar_err'], t_half=1.25e9, mu=0.8)
+# fit_2 = exponential.fit(df['t_half_jaar'], x=df['hoeveelheid_kacarb'], weights=1/df['t_half_jaar_err'], t_half=1.25e9, mu=0.8)
 
-fit_2.plot(ylabel='t_half (y)', xlabel='kaliumcarbonaat (g)')
-plt.show()
+# fit_2.plot(ylabel='t_half (y)', xlabel='kaliumcarbonaat (g)')
+# plt.show()
 
-print(lmfit.report_fit(fit_2))
+# print(lmfit.report_fit(fit_2))
 
-t_half = fit_2.params['t_half'].value
-t_half_err = fit_2.params['t_half'].stderr
+# t_half = fit_2.params['t_half'].value
+# t_half_err = fit_2.params['t_half'].stderr
 
-print(f'De halfwaardetijd is {t_half:.3e} jaar +/- {t_half_err:.3e} jaar')
+# print(f'De halfwaardetijd is {t_half:.3e} jaar +/- {t_half_err:.3e} jaar')
 

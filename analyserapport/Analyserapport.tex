@@ -23,6 +23,7 @@
 \usepackage[output-decimal-marker={,},list-final-separator={ en }]{siunitx}          % Voor het typesetten en uitlijnen van getallen en eenheden, zie documentatie
 \usepackage[pdfusetitle]{hyperref}  % Voor handige links in je PDF. B.v. urls, referenties, etc.
 \usepackage[version=4]{mhchem}
+\usepackage{physics}
 
 
 \linespread{1.3}              % Iets grotere regelafstand: fijn voor degene die het nakijkt.
@@ -74,10 +75,75 @@
 %%BEGIN VAN DE INHOUD VAN HET DOCUMENT
 
 \section{Inleiding}
-In dit analyserapport wordt de bepaling van de halfwaardetijd van kalium-40 gepresenteerd. De gebruikte meetdata bestond uit metingen van de activiteit van bepaalde hoeveelheden kaliumcarbonaat, \ce{K2CO3}. 
+In dit analyserapport wordt de bepaling van de halfwaardetijd van kalium-40 gepresenteerd. De gebruikte meetdata bestond uit metingen van de activiteit van bepaalde hoeveelheden kaliumcarbonaat, \ce{K2CO3}. De metingen zijn gedaan met een Geiger-Muller (GM) telbuis.
 
-De metingen zijn gedaan met een Geiger-Muller (GM) telbuis, waarvan de intrinsieke efficiëntie onbekend is. Om de intrinsieke efficiëntie te bepalen zijn ijkmetingen gedaan met zes andere GM buizen. De ijkbron was een strontium-90 bron met bekende activiteit. Aan de hand van een fit is te bepalen of de zevende GM buis, waarmee de metingen aan het kaliumcarbonaat zijn gedaan, ofwel dezelfde intrinsieke efficiëntie had als de andere zes (optie 1), ofwel een andere intrinsieke efficiëntie (optie 2). Optie 1 zou betekenen dat de verschillen in de gemeten deeltjes per GM buis alleen veroorzaakt worden door de fout op het aantal getelde deeltjes. Als dit niet het geval is, geldt optie 2 en wordt voor de intrinsieke efficiëntie van de zevende buis het gemiddelde van de andere zes genomen.
+\section{IJken GM-buis}
 
+Elke GM-buis heeft een efficiëntie, die staat voor de kans dat een deeltje afkomstig van een bron gemeten wordt. De efficiëntie volgt uit
+\begin{equation}
+\epsilon = \epsilon_g \epsilon_i
+\label{eq:efficientie}
+\end{equation}
+met $\epsilon_g$ de geometrische efficiëntie en $\epsilon_i$ de intrinsieke efficiëntie. De geometrische efficiëntie hangt af van de opstelling, en staat voor de kans dat een deeltje in de richting van het intreevenster uitgezonden wordt. De intrinsieke efficiëntie hangt af van het soort straling.
+
+De intrinsieke efficiëntie van de gebruikte GM-buis is onbekend. Om deze te bepalen zijn ijkmetingen gedaan met zes andere GM buizen. De ijkbron was een strontium-90 bron met bekende activiteit. Aan de hand van een fit is te bepalen of de zevende GM buis, waarmee de metingen aan het kaliumcarbonaat zijn gedaan, ofwel dezelfde intrinsieke efficiëntie had als de andere zes (optie 1), ofwel een iets andere intrinsieke efficiëntie (optie 2). Optie 1 zou betekenen dat de verschillen in de gemeten deeltjes per GM buis alleen veroorzaakt worden door de fout in de telstatistiek. Als dit niet het geval is, geldt optie 2 en wordt voor de intrinsieke efficiëntie van de zevende buis het gemiddelde van de andere zes genomen.
+
+\subsection{Meetdata}
+Met elk van de zes GM-buizen is een ijkmeting gedaan. De ijkbron had een activiteit van 1400 Bq. De bron bevond zich op 15.0 cm van het intreevenster van de GM-buis. Het ronde intreevenster had een diameter van 3.0 cm. Ook is er met elke GM-buis een achtergrondmeting gedaan. Alle metingen duurden 480 s. De resultaten van de metingen staan in tabel \ref{tab:tabel1}. De telstatistiek wordt bepaald door de Poissonverdeling. De fout op de getelde deeltjes worden daarom gegeven door de wortel van het aantal getelde deeltjes zelf.
+
+\begin{table}
+\caption{Meetdata van de ijkmetingen. De fouten op de aantallen counts worden gegeven door de wortel van het aantal counts zelf.}
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{SSSSS} % uitlijnen als getal, dus met de komma's b.v. recht onder elkaar.
+\toprule
+{Nummer GM-buis} & {Aantal counts met bron} & {Fout op aantal counts} & {Achtergrondcounts} & {Fout op achtergrond} \\  % Kop moet tussen {} om uitlijning als getal te voorkomen
+\midrule
+7	&	1399	&	 37.40 	&	187	&	13.67	\\
+9	&	1455	&	 38.14 	&	159	&	12.61	\\
+10	&	1421	&	 37.70 	&	212	&	14.56	\\
+11	&	1580	&	 39.75 	&	154	&	12.41	\\
+13	&	1418	&	 37.66 	&	177	&	13.30	\\
+15	&	1589	&	 39.86 	&	183	&	13.53	\\
+\bottomrule
+\end{tabular}}
+\label{tab:tabel1}
+\end{table}
+
+\subsection{Uitwerking}
+Het aantal counts afkomstig van het strontium is te berekenen door het aantal achtergrondcounts van het totale aantal gemeten counts af te halen. De fout hierop wordt bepaald aan de hand van de algemene formule voor foutenpropagatie:
+\begin{equation}
+\delta q = \sqrt{\left(\pdv{q}{x}\delta x\right)^2 + ... + \left(\pdv{q}{z}\delta z\right)^2}
+\label{eq:foutenpropagatie}
+\end{equation}
+
+Omschrijven van vergelijking \ref{eq:foutenpropagatie} geeft voor de fout op het aantal counts afkomstig van de strontium-bron:
+\begin{equation}
+\delta \text{strontium} = \sqrt{\left(\delta \text{counts}\right)^2 + \left(\delta \text{achtergrond}\right)^2}
+\label{eq:fout_strontium}
+\end{equation}
+
+De totale hoeveelheid deeltjes afkomstig van de strontium-bron is te berekenen. Per vervalsreactie van strontium-90 komen er twee $\beta^-$-deeltjes vrij. Met een activiteit van 1400 Bq en een meetduur van 480 s volgt hieruit voor het totale aantal deeltjes:
+\begin{equation}
+\text{aantal deeltjes} = 1400 * 2 * 480 = 1.334.000
+\label{eq:aantal_deeltjes_ijkbron}
+\end{equation}
+
+Op zowel de activiteit van de bron als de duur van de meting zit een fout van 1. Hieruit volgt, via vergelijking \ref{eq:foutenpropagatie}, voor de fout op het totale aantal deeltjes:
+\begin{equation}
+\text{fout aantal deeltjes} = \sqrt{\left(960\right)^2 + \left(2800\right)^2} = 2960
+\end{equation}
+
+Voor de totale efficiëntie van de gebruikte GM-buizen geldt:
+\begin{equation}
+\epsilon = \frac{\text{aantal gemeten deeltjes}}{\text{totaal uitgezonden deeltjes}}
+\label{eq:efficientie_GM}
+\end{equation}
+Ook hier zit een fout op, die weer volgt uit vergelijking \ref{eq:foutenpropagatie}. Vervolgens is met de geometrische efficiëntie en vergelijking \ref{eq:efficientie} de intrinsieke efficiëntie van de GM-buizen te bepalen. De geometrische efficiëntie is te berekenen als de verhouding tussen de oppervlakte van het intreevenster van de GM-buizen en de oppervlakte van de bolschil waarover de straling vanaf de ijkbron verdeeld wordt. De formule is:
+\begin{equation}
+\epsilon_g = \frac{\pi r^2}{4\pi R^2}
+\label{eq:geometrisch}
+\end{equation}
+met $r$ de straal van het intreevenster en $R$ de straal van de bolschil. Uiteraard weer met fout volgens vergelijking \ref{eq:foutenpropagatie}. De straal van het intreevenster is hier 1.5 cm, met een fout van 0.1 cm. De straal van de bolschil is gelijk aan de afstand van de bron tot de detector, 15.0 cm, ook met een fout van 0.1 cm.
 
 
 %\section{Inleiding}
