@@ -24,9 +24,6 @@ df_1['strontium_err'] = np.sqrt((df_1['counts_err'])**2 + (df_1['achtergrond_err
 strontium_totaal = 960 * 1400
 strontium_totaal_err = np.sqrt((960)**2 + (2800)**2)
 
-print(strontium_totaal)
-print(strontium_totaal_err)
-
 df_1['efficientie'] = df_1['strontium']/strontium_totaal
 df_1['efficientie_err'] = np.sqrt((df_1['strontium_err']/strontium_totaal)**2 + (-(df_1['strontium']*strontium_totaal_err)/strontium_totaal**2)**2)
 
@@ -42,17 +39,18 @@ e_g_err = geometrisch_err(0.015, 0.15, 0.001, 0.001)
 df_1['intrinsiek'] = df_1['efficientie']/e_g
 df_1['intrinsiek_err'] = np.sqrt((df_1['efficientie_err']/e_g)**2 + (-(df_1['efficientie']*e_g_err)/e_g**2)**2)
 
-sel_1 = df_1[['efficientie', 'efficientie_err', 'intrinsiek', 'intrinsiek_err']]
+sel_1 = df_1[['GM', 'efficientie', 'efficientie_err', 'intrinsiek', 'intrinsiek_err']]
 sel_1.to_csv('efficienties.csv', index=False)
 
-mod_linear = models.ConstantModel()
-fit = mod_linear.fit(df_1['strontium'], x=df_1['GM'], weights=1/df_1['strontium_err'])
-# fit.plot()
+constant = lambda x, a: a
+constant_model = models.Model(constant, name='constant')
 
-df_1.plot.scatter('GM', 'strontium', yerr='strontium_err')
-plt.show()
+fit = constant_model.fit(df_1['strontium'], x=df_1['GM'], weights=1/df_1['strontium_err'], a=1300)
 
-print(lmfit.report_fit(fit))
+# df_1.plot.scatter('GM', 'strontium', yerr='strontium_err')
+# plt.show()
+
+# print(lmfit.report_fit(fit))
 
 # print(fit.redchi)
 ## referentie: https://stackoverflow.com/questions/43381833/lmfit-extract-fit-statistics-parameters-after-fitting
@@ -69,13 +67,15 @@ for error in intrinsiek_err:
 intrinsiek_7 = sum(intrinsiek)/6
 intrinsiek_7_err = np.sqrt(sum(intrinsiek_err_sqrd))/6
 
-# intrinsiek_7 = 0.4
+# intrinsiek_7 = 0.41
 # intrinsiek_7_err = 0.02
 
-print(f"De intrinsieke efficiëntie van de 7e GM-buis is {intrinsiek_7:.2f} +/- {intrinsiek_7_err:.2f}")
+print(f"De intrinsieke efficiëntie van de 7e GM-buis is {intrinsiek_7:.3f} +/- {intrinsiek_7_err:.3f}")
 
 molmassa_kacarb = 2*39.0983 + 12.011 + 3*15.9994
 molmassa_kacarb_err = np.sqrt((2*0.0001)**2 + 0.001**2 + (3*0.0001)**2)
+
+print(molmassa_kacarb, molmassa_kacarb_err)
 
 df = pd.DataFrame([
     [0.171, 433],
@@ -88,6 +88,9 @@ df = pd.DataFrame([
 
 df['hoeveelheid_kacarb_err'] = 0.004
 df['counts_err'] = np.sqrt(df['counts'])
+
+sel_2 = df[['hoeveelheid_kacarb', 'hoeveelheid_kacarb_err', 'counts', 'counts_err']]
+sel_2.to_csv('metingen_kalium.csv', index=False)
 
 df['mol_kacarb'] = df['hoeveelheid_kacarb']/molmassa_kacarb
 df['mol_kacarb_err'] = np.sqrt((df['hoeveelheid_kacarb_err']/molmassa_kacarb)**2 + ((df['hoeveelheid_kacarb']*molmassa_kacarb_err)/molmassa_kacarb**2)**2)
@@ -106,6 +109,9 @@ fractie_kalium_40_err = .01e-4
 df['aantal_kalium_40_deeltjes'] = fractie_kalium_40 * df['aantal_kalium_deeltjes']
 df['aantal_kalium_40_deeltjes_err'] = np.sqrt((df['aantal_kalium_deeltjes'] * fractie_kalium_40_err)**2 + (fractie_kalium_40 * df['aantal_kalium_deeltjes_err'])**2)
 
+sel_3 = df[['hoeveelheid_kacarb', 'aantal_kalium_40_deeltjes', 'aantal_kalium_40_deeltjes_err']]
+sel_3.to_csv('kalium_40_deeltjes.csv', index=False)
+
 df['gemeten'] = df['counts'] - 159
 df['gemeten_err'] = np.sqrt((df['counts_err'])**2 + 159)
 
@@ -115,26 +121,29 @@ geometrisch_kalium_err = 0.07
 efficientie = geometrisch_kalium * intrinsiek_7
 efficientie_err = np.sqrt((geometrisch_kalium*intrinsiek_7_err)**2 + (intrinsiek_7*geometrisch_kalium_err)**2)
 
-df['t_half'] = (df['aantal_kalium_40_deeltjes'] * np.log(2) * efficientie * 600) / df['gemeten']
+df['t_half'] = (df['aantal_kalium_40_deeltjes'] * np.log(2) * efficientie * 600 * 0.89) / df['gemeten']
 df['t_half_err'] = df['t_half'] * np.sqrt((df['aantal_kalium_deeltjes_err'] / df['aantal_kalium_deeltjes'])**2 + (efficientie_err / efficientie)**2 + (1 / 600)**2 + (df['gemeten_err'] / df['gemeten'])**2)
 
 df['t_half_jaar'] = df['t_half'] / (365.25 * 24 * 60 * 60)
 df['t_half_jaar_err'] = df['t_half_err'] / (365.25 * 24 * 60 * 60)
 
-# print(df[['aantal_kalium_deeltjes', 'aantal_kalium_40_deeltjes', 'aantal_kalium_40_deeltjes_err', 't_half', 't_half_err', 't_half_jaar', 't_half_jaar_err']])
+sel_4 = df[['hoeveelheid_kacarb', 't_half_jaar', 't_half_jaar_err']]
+sel_4.to_csv('halfwaardetijden.csv', index=False)
 
-# f = lambda x, t_half, mu: t_half * np.exp(mu*x)
-# exponential = models.Model(f, name='halfwaardetijd')
+print(df[['aantal_kalium_deeltjes', 'aantal_kalium_40_deeltjes', 'aantal_kalium_40_deeltjes_err', 't_half', 't_half_err', 't_half_jaar', 't_half_jaar_err']])
 
-# fit_2 = exponential.fit(df['t_half_jaar'], x=df['hoeveelheid_kacarb'], weights=1/df['t_half_jaar_err'], t_half=1.25e9, mu=0.8)
+f = lambda x, t_half, mu: t_half * np.exp(mu*x)
+exponential = models.Model(f, name='halfwaardetijd')
 
-# fit_2.plot(ylabel='t_half (y)', xlabel='kaliumcarbonaat (g)')
-# plt.show()
+fit_2 = exponential.fit(df['t_half_jaar'], x=df['hoeveelheid_kacarb'], weights=1/df['t_half_jaar_err'], t_half=1.25e9, mu=0.8)
 
-# print(lmfit.report_fit(fit_2))
+fit_2.plot(ylabel='t_half (y)', xlabel='kaliumcarbonaat (g)')
+plt.show()
 
-# t_half = fit_2.params['t_half'].value
-# t_half_err = fit_2.params['t_half'].stderr
+print(lmfit.report_fit(fit_2))
 
-# print(f'De halfwaardetijd is {t_half:.3e} jaar +/- {t_half_err:.3e} jaar')
+t_half = fit_2.params['t_half'].value
+t_half_err = fit_2.params['t_half'].stderr
+
+print(f'De halfwaardetijd is {t_half:.3e} jaar +/- {t_half_err:.3e} jaar')
 

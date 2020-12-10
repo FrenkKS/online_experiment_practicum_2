@@ -89,7 +89,7 @@ met $\epsilon_g$ de geometrische efficiëntie en $\epsilon_i$ de intrinsieke eff
 De intrinsieke efficiëntie van de gebruikte GM-buis is onbekend. Om deze te bepalen zijn ijkmetingen gedaan met zes andere GM buizen. De ijkbron was een strontium-90 bron met bekende activiteit. Aan de hand van een fit is te bepalen of de zevende GM buis, waarmee de metingen aan het kaliumcarbonaat zijn gedaan, ofwel dezelfde intrinsieke efficiëntie had als de andere zes (optie 1), ofwel een iets andere intrinsieke efficiëntie (optie 2). Optie 1 zou betekenen dat de verschillen in de gemeten deeltjes per GM buis alleen veroorzaakt worden door de fout in de telstatistiek. Als dit niet het geval is, geldt optie 2 en wordt voor de intrinsieke efficiëntie van de zevende buis het gemiddelde van de andere zes genomen.
 
 \subsection{Meetdata}
-Met elk van de zes GM-buizen is een ijkmeting gedaan. De ijkbron had een activiteit van 1400 Bq. De bron bevond zich op 15.0 cm van het intreevenster van de GM-buis. Het ronde intreevenster had een diameter van 3.0 cm. Ook is er met elke GM-buis een achtergrondmeting gedaan. Alle metingen duurden 480 s. De resultaten van de metingen staan in tabel \ref{tab:tabel1}. De telstatistiek wordt bepaald door de Poissonverdeling. De fout op de getelde deeltjes worden daarom gegeven door de wortel van het aantal getelde deeltjes zelf.
+Met elk van de zes GM-buizen is een ijkmeting gedaan. De ijkbron had een activiteit van 1400 Bq. De bron bevond zich op 15,0 cm van het intreevenster van de GM-buis. Het ronde intreevenster had een diameter van 3,0 cm. Ook is er met elke GM-buis een achtergrondmeting gedaan. Alle metingen duurden 480 s. De resultaten van de metingen staan in tabel \ref{tab:tabel1}. De telstatistiek wordt bepaald door de Poissonverdeling. De fout op de getelde deeltjes worden daarom gegeven door de wortel van het aantal getelde deeltjes zelf.
 
 \begin{table}
 \caption{Meetdata van de ijkmetingen. De fouten op de aantallen counts worden gegeven door de wortel van het aantal counts zelf.}
@@ -143,7 +143,182 @@ Ook hier zit een fout op, die weer volgt uit vergelijking \ref{eq:foutenpropagat
 \epsilon_g = \frac{\pi r^2}{4\pi R^2}
 \label{eq:geometrisch}
 \end{equation}
-met $r$ de straal van het intreevenster en $R$ de straal van de bolschil. Uiteraard weer met fout volgens vergelijking \ref{eq:foutenpropagatie}. De straal van het intreevenster is hier 1.5 cm, met een fout van 0.1 cm. De straal van de bolschil is gelijk aan de afstand van de bron tot de detector, 15.0 cm, ook met een fout van 0.1 cm.
+met $r$ de straal van het intreevenster en $R$ de straal van de bolschil. Uiteraard weer met fout volgens vergelijking \ref{eq:foutenpropagatie}. De straal van het intreevenster is hier 1,5 cm, met een fout van 0,1 cm. De straal van de bolschil is gelijk aan de afstand van de bron tot de detector, 15,0 cm, ook met een fout van 0,1 cm. Voor de geometrische efficiëntie van de opstelling geldt dus $\epsilon_g = 0,0025 \pm 0,00033$. De berekende (intrinsieke) efficiënties van de GM-buizen staan in tabel \ref{tab:tabel2}.
+
+\begin{table}
+\caption{Berekende efficiënties en intrinsieke efficiënties van de GM-buizen, met de bijbehorende fouten. De intrinsieke efficiëntie is bepaald uit de efficiëntie en de geometrische efficiëntie met vergelijking \ref{eq:efficientie}.}
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{SSSSS} % uitlijnen als getal, dus met de komma's b.v. recht onder elkaar.
+\toprule
+{Nummer GM-buis} & {$\epsilon$} & {$\delta \epsilon$} & {$\epsilon_i$} & {$\delta \epsilon_i$} \\  % Kop moet tussen {} om uitlijning als getal te voorkomen
+\midrule
+$7	$&$	0.000902	$&$	0.000030	$&$	0.361	$&$	0.050$	\\
+$9	$&$	0.000964	$&$	0.000030	$&$	0.386	$&$	0.053$	\\
+$10	$&$	0.000900	$&$	0.000030	$&$	0.360	$&$	0.050$	\\
+$11	$&$	0.001061	$&$	0.000031	$&$	0.424	$&$	0.058$	\\
+$13	$&$	0.000923	$&$	0.000030	$&$	0.369	$&$	0.051$	\\
+$15	$&$	0.001046	$&$	0.000031	$&$	0.418	$&$	0.057$	\\
+\bottomrule
+\end{tabular}}
+\label{tab:tabel2}
+\end{table}
+
+Om te bepalen welke van de twee opties (verschillen door telstatistiek of verschillende buizen) geldt, is een constante fit gedaan op het aantal gemeten deeltjes afkomstig van strontium. Als optie 1 (telstatistiek) zou gelden, zou een constante fit een genoeg nauwkeurige representatie van de data geven. De gereduceerde $\chi^2$-waarde van de fit was echter ongeveer 5,5. Op basis hiervan is optie 1 te verwerpen. De intrinsieke efficiëntie van de gebruikte GM-buis wordt dus berekend door het gemiddelde van de zes andere GM-buizen te nemen.
+
+Voor de intrinsieke efficiëntie van de gebruikte GM-buis geldt dus:
+\begin{equation}
+\epsilon_{i,7} = \frac{1}{6}\sum_{n=1}^{6}\epsilon_{i,n}
+\label{eq:intrinsiek_7}
+\end{equation}
+met $\epsilon_{i,n}$ de intrinsieke efficiëntie van de n-de GM-buis. Voor de fout op de intrinsieke efficiëntie van de 7e buis geldt, via vergelijking \ref{eq:foutenpropagatie}:
+\begin{equation}
+\delta \epsilon_{i,7} = \frac{1}{6}\sqrt{\sum_{n=1}^{6}\delta\epsilon_{i,n}^2}
+\label{eq:intrinsiek_7_err}
+\end{equation}
+
+\subsection{Conclusie}
+Uit vergelijking \ref{eq:intrinsiek_7} en \ref{eq:intrinsiek_7_err} volgt voor de intrinsieke efficiëntie van de gebruikte GM-buis:
+\begin{equation}
+\epsilon_i = 0,386 \pm 0,022
+\label{eq:intrinsiek_7_waarde}
+\end{equation}
+
+\section{Bepaling halfwaardetijd kalium-40}
+Voor radioactief verval geldt de volgende relatie voor het aantal kernen op tijdstip t:
+\begin{equation}
+N(t) = N_0 e^{-\lambda t}
+\label{eq:verval}
+\end{equation}
+met $N_0$ het aantal kernen op tijdstip 0 en $\lambda$ de vervalconstante. Voor $\lambda$ geldt:
+\begin{equation}
+\lambda = \frac{\ln 2}{\tau_{1/2}}
+\label{eq:vervalconstante}
+\end{equation}
+waarbij $\tau_{1/2}$ de halfwaardetijd van de radioactieve stof is.
+
+De halfwaardetijd van kalium-40 is zeer lang, meer dan een miljard jaar. Het bepalen van de precieze halfwaardetijd gaat dus niet met wachten. Daarvoor is de afgeleide van vergelijking \ref{eq:verval} nodig:
+\begin{equation}
+\dv{N}{t} = -\lambda N_0 e^{-\lambda t} \approx -\lambda N_0
+\label{eq:afgeleide_verval}
+\end{equation}
+waarbij de uitdrukking achter het $\approx$-teken geldt voor hele lange halfwaardetijden. Het deel voor het $=$-teken in de vergelijking is het totale aantal uitgezonden deeltjes per tijdseenheid. Dit is te berekenen aan de hand van het aantal gemeten deeltjes, de efficiëntie, de duur van de meting en het aantal deeltjes dat per vervalsreactie vrijkomt. De metingen duurden allemaal 600 seconden. Voor kalium-40 is het aantal deeltjes per vervalsreactie 1. Er komt echter maar in 89\% van de gevallen een $\beta^-$-deeltje vrij. Bij de andere 11\% is dit een$\beta^+$-deeltje, wat vrijwel direct zal annihileren met vrije elektronen in de stof/de lucht en dus nooit de detector zal bereiken. Er volgt dus:
+\begin{equation}
+\dv{N}{t} = \frac{N_\mathrm{gemeten}}{600\cdot\epsilon\cdot 0,89}
+\label{eq:afgeleide_verval_2}
+\end{equation}
+
+Uit vergelijkingen \ref{eq:vervalconstante}, \ref{eq:afgeleide_verval} en \ref{eq:afgeleide_verval_2} volgt voor de halfwaardetijd:
+\begin{equation}
+\tau_{1/2} = \frac{N_0 \cdot 600 \cdot \epsilon \cdot 0,89 \cdot \ln 2}{N_\mathrm{gemeten}}
+\label{eq:halfwaardetijd}
+\end{equation}
+
+\subsection{Meetdata}
+De metingen zijn gedaan aan verschillende hoeveelheden kaliumcarbonaat, \ce{K2CO3}. Elke meting duurde 600 s. De resultaten zijn weergegeven in tabel \ref{tab:tabel3}. Ook hier zijn de fouten op de counts gegeven door de wortel van het aantal counts. De fout op het gewicht hangt af van de nauwkeurigheid van de weegschaal, en die bedroeg 0,004 g. Er is ook een achtergrondmeting gedaan, waarbij met een leeg bakje 159 counts gemeten zijn in 600 s. De fout op de achtergrond wordt ook gegeven door de wortel van het aantal counts.
+
+\begin{table}
+\caption{Gemeten activiteit van verschillende hoeveelheden \ce{K2CO3}. De fouten op de counts worden gegeven door de wortel van het aantal counts zelf.}
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{SSSS} % uitlijnen als getal, dus met de komma's b.v. recht onder elkaar.
+\toprule
+{Hoeveelheid \ce{K2CO3} [\si{g}]} & {Fout op \ce{K2CO3} [\si{g}]} & {Aantal counts} & {Fout op counts} \\  % Kop moet tussen {} om uitlijning als getal te voorkomen
+\midrule
+$	0.171	$&$	0.004	$&$	433	$&$	20.8	$\\
+$	0.274	$&$	0.004	$&$	514	$&$	22.7	$\\
+$	0.378	$&$	0.004	$&$	651	$&$	25.5	$\\
+$	0.632	$&$	0.004	$&$	792	$&$	28.1	$\\
+$	1.045	$&$	0.004	$&$	893	$&$	29.9	$\\
+$	1.353	$&$	0.004	$&$	939	$&$	30.6	$\\
+\bottomrule
+\end{tabular}}
+\label{tab:tabel3}
+\end{table}
+
+\subsection{Aantal kalium-40 deeltjes}
+In vergelijking \ref{eq:halfwaardetijd} staat $N_0$ voor het aantal kalium-40 deeltjes in het kaliumcarbonaat. Om dit aantal te berekenen is allereerst de molmassa van kaliumcarbonaat nodig. Uit de molmassa's van kalium, koolstof en zuurstof (en de fouten daarop) volgt:
+\begin{equation}
+\text{molmassa kaliumcarbonaat} = 138,2058 \pm 0,0011
+\label{eq:molmassa_kacarb}
+\end{equation}
+Door de hoeveelheid \ce{K2CO3} te delen door de molmassa, is het aantal mol kaliumcarbonaat per meting te bepalen. Aangezien er in een mol \ce{K2CO3} twee mol kalium zit, is het aantal mol kalium te bepalen door het aantal mol kaliumcarbonaat te verdubbelen. Uiteraard zijn hier met vergelijking \ref{eq:foutenpropagatie} fouten bij berekend.
+
+Per mol zijn er precies $6,02214076 \cdot 10^{23}$ deeltjes (Getal van Avogadro). Om het aantal kaliumdeeltjes te bepalen moet de hoeveelheid in mol dus vermenigvuldigd worden met het dit getal.
+
+In de natuur is de fractie kalium-40 ten opzichte van de totale hoeveelheid kalium ongeveer $1,17 \cdot 10^{-4}$, met een fout van 
+$0,01 \cdot 10^{-4}$. Om het totale aantal kalium-40 deeltjes per meting te berekenen, moet het totale aantal kaliumdeeltjes vermenigvuldigd worden met deze fractie. De resultaten hiervan staan in tabel \ref{tab:tabel4}. De fout is weer berekend met vergelijking \ref{eq:foutenpropagatie}.
+
+\begin{table}
+\caption{Aantal kalium-40 deeltjes per hoeveelheid \ce{K2CO3}.}
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{SSS} % uitlijnen als getal, dus met de komma's b.v. recht onder elkaar.
+\toprule
+{Hoeveelheid \ce{K2CO3} [\si{g}]} & {Aantal kalium-40 deeltjes} & {Fout op aantal kalium-40}\\  % Kop moet tussen {} om uitlijning als getal te voorkomen
+\midrule
+$	0.171	$&$	1.744E+17	$&$	4.342E+15	$\\
+$	0.274	$&$	2.794E+17	$&$	4.726E+15	$\\
+$	0.378	$&$	3.854E+17	$&$	5.243E+15	$\\
+$	0.632	$&$	6.444E+17	$&$	6.853E+15	$\\
+$	1.045	$&$	1.066E+18	$&$	9.978E+15	$\\
+$	1.353	$&$	1.380E+18	$&$	1.248E+16	$\\
+\bottomrule
+\end{tabular}}
+\label{tab:tabel4}
+\end{table}
+
+\subsection{Bepaling halfwaardetijd per meting}
+In vergelijking \ref{eq:halfwaardetijd} staat ook het aantal gemeten deeltjes. Dit is per meting te berekenen door het aantal achtergrondcounts van het totale aantal gemeten counts af te halen. 
+
+De efficiëntie volgt uit vergelijking \ref{eq:efficientie}. De intrinsieke efficiëntie is bepaald bij vergelijking \ref{eq:intrinsiek_7_waarde}. De geometrische efficiëntie moet echter geschat worden. Uit de opstelling volgt een geometrische efficiëntie rond 0,4, met een fout van 0,07. Deze waardes zijn gekozen omdat er in ieder geval minder dan de helft van de straling het intreevenster binnen komt. Het lijkt echter ook in ieder geval meer dan een derde te zijn, omdat de bron wel vrij dicht op het venster staat. Daarom is deze geometrische efficiëntie gekozen, met een relatief grote fout omdat het een ruwe schatting betreft.
+
+Met het aantal kalium-40 deeltjes, het aantal gemeten deeltjes en de efficiëntie is nu de halfwaardetijd per meting te berekenen. Voor de fout op de halfwaardetijd kan weer vergelijking \ref{eq:foutenpropagatie} gebruikt worden. Door de vele variabelen is echter gekozen voor de versimpelde vorm:
+\begin{equation}
+\frac{\delta \tau_{1/2}}{\tau_{1/2}} = \sqrt{(\frac{\delta N_0}{N_0})^2 + (\frac{\delta \epsilon}{\epsilon})^2 + (\frac{\delta t}{t})^2 (\frac{\delta N_\mathrm{gemeten}}{N_\mathrm{gemeten}})^2}
+\label{eq:foutenpropagatie_2}
+\end{equation}
+met $t$ de duur van het experiment in seconden. Vervolgens is de halfwaardetijd omgerekend naar jaren door te delen door een factor $(365,25 \cdot 24 \cdot 60 \cdot 60)$. De resultaten per meting staan in tabel \ref{tab:tabel5}.
+
+\begin{table}
+\caption{Berekende halfwaardetijden bij verschillende metingen.}
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{SSS} % uitlijnen als getal, dus met de komma's b.v. recht onder elkaar.
+\toprule
+{Hoeveelheid \ce{K2CO3} [\si{g}]} & {Halfwaardetijd [jaar]} & {Fout halfwaardetijd [jaar]}\\  % Kop moet tussen {} om uitlijning als getal te voorkomen
+\midrule
+$	0.171	$&$	1.154E+09	$&$	2.371E+08	$\\
+$	0.274	$&$	1.427E+09	$&$	2.830E+08	$\\
+$	0.378	$&$	1.420E+09	$&$	2.741E+08	$\\
+$	0.632	$&$	1.846E+09	$&$	3.512E+08	$\\
+$	1.045	$&$	2.632E+09	$&$	4.977E+08	$\\
+$	1.353	$&$	3.206E+09	$&$	6.051E+08	$\\
+\bottomrule
+\end{tabular}}
+\label{tab:tabel5}
+\end{table}
+
+\subsection{Berekening halfwaardetijd}
+Wat opvalt is dat de halfwaardetijd stijgt bij grotere hoeveelheden kaliumcarbonaat. Dit is het gevolg van zelfabsorptie, waarbij uitgezonden elektronen geabsorbeerd worden in de stof voordat ze de detector bereiken. Hoe dikker de laag kaliumcarbonaat, hoe meer zelfabsorptie plaatsvindt. Het aantal gemeten deeltjes is dan kleiner en uit vergelijking \ref{eq:halfwaardetijd} volgt dan een grotere halfwaardetijd. Dit is een exponentieel verband. Om de werkelijke halfwaardetijd te berekenen kan er dus een exponentiële fit gedaan worden over de verkregen data. De gebruikte formule om te fitten is:
+\begin{equation}
+\tau_{1/2, \mathrm{gemeten}} = \tau_{1/2, \mathrm{werkelijk}} \cdot e^{\mu x}
+\label{eq:fit_halfwaarde}
+\end{equation}
+waarbij de werkelijke waarde voor $\mu$ niet uitmaakt. De fit hoeft dus ook niet goed te zijn, het gaat alleen om de beginwaarde, $\tau_{1/2, \mathrm{werkelijk}$.
+
+In figuur \ref{fig:figuur1} is de gebruikte fit te zien. Uit de fit is gekomen:
+\begin{equation*}
+\tau_{1/2} = 1,058 \cdot 10^9 \text{ jaar} \pm 4,036 \cdot 10^7 \text{ jaar}
+\end{equation*}
+
+\begin{figure}  % Forceer je figuur niet naar [h]ere. Dat gebeurt in artikelen ook niet.
+\centering
+\includegraphics[scale=0.7]{fit_halfwaarde}
+\caption{Fit om de halfwaardetijd te berekenen.}
+\label{fig:figuur1}
+\end{figure}
+
+\section{Conclusie & Discussie}
+De theoretische waarde voor de halfwaardetijd van kalium-40 is ongeveer $1,25 \cdot 10^9$ jaar. De gevonden waarde ligt dus wel in dezelfde orde van grootte.
+
+Het verschil tussen de gevonden en de theoretische waarde komt waarschijnlijk voornamelijk door de schatting van de intrinsieke efficiëntie van de gebruikte GM-buis. Tijdens de data-analyse bleek een verschil van 0,02 in de gebruikte intrinsieke efficiëntie al een aanzienlijk verschil te maken voor de uitkomst. Met een intrinsieke efficiëntie van 0,41, tegenover de gebruikte 0,386, werd een waarde voor de halfwaardetijd gevonden rond $1,23 \cdot 10^9$, veel dichter bij de theoretische waarde. In een vervolgonderzoek zou de waarde van de gebruikte GM-buis daarom bepaald moeten worden door direct een meting te doen aan de ijkbron, zodat de intrinsieke efficiëntie van de GM-buis berekend kan worden in plaats van geschat.
 
 
 %\section{Inleiding}
